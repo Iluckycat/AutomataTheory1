@@ -1,2 +1,5 @@
 Analyzing with RegEx completed in 0.025404930114746094 seconds
 Analyzing with SMC completed in 0.5480391979217529 seconds
+Analyzing with PLY completed in 0.7222390174865723 seconds
+Analyzing with PLY completed in 0.5594651699066162 seconds
+Analyzing with PLY completed in 0.5592482089996338 seconds

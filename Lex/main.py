@@ -11,6 +11,30 @@ def PLYConsolecheck(_str):
     else:
         return _str.rstrip('\n') + ' --- Incorrect\n'
 
+def PLYfilecheck():
+    _parser = parser_my.Parser()
+    inf = open('../StringAnalyzer/Files/string.txt', 'r')
+    ouf = open('../StringAnalyzer/Files/PLYOutput', 'w')
+    _starttime = time.time()
+    for line in inf.readlines():
+        _res = _parser.PLYCheck(line, _file=True)
+        if _parser.flag:
+            ouf.write(line.rstrip('\n') + ' --- Correct\n')
+        else:
+            ouf.write(line.rstrip('\n') + ' --- Incorrect\n')
+    _endtime = time.time()
 
-a = str(input())
-print(PLYConsolecheck(a))
+    if os.path.isfile('../StringAnalyzer/Files/time.txt'):
+        timefile = open('../StringAnalyzer/Files/time.txt', 'a')
+        timefile.write('Analyzing with PLY completed in ' + str(_endtime - _starttime) + ' seconds\n')
+    else:
+        timefile = open('../StringAnalyzer/Files/time.txt', 'w')
+        timefile.write('Analyzing with PLY completed in ' + str(_endtime - _starttime) + ' seconds\n')
+    timefile.close()
+    print('Analyzing with PLY completed in', _endtime - _starttime, 'seconds')
+    inf.close()
+    ouf.close()
+
+# a = str(input())
+# print(PLYConsolecheck(a))
+PLYfilecheck()

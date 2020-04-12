@@ -28,16 +28,16 @@ class Lexer:
         return t
 
     def t_CMD1(self, t):
-        r'(add|def)\s'
+        r'(add|def)'
         #t.lexer.begin('NL')
         return t
 
     def t_CMD2(self,t):
-        r'(chk)\s'
+        r'(chk)'
         return t
 
     def t_CMD3(self,t):
-        r'(und)\s'
+        r'(und)'
         return t
 
     def t_SP(self, t):
@@ -68,10 +68,11 @@ class Lexer:
         t.lexer.begin('INITIAL')
         return t
 
-# l = Lexer()
-# l.input('#und HJAHH')
-# while True:
-#     tok = l.token()
-#     if not tok:
-#         break
-#     print(tok)
+
+l = Lexer()
+l.input('#und HJAHH sdsdsds ddsd')
+while True:
+    tok = l.token()
+    if not tok:
+        break
+    print(tok)

@@ -50,4 +50,4 @@ while True:
             print('Wrong choice, try again!')
     else:
         print('Wrong choice, try again!')
-print('The end!')
+print('The end! Goodbye')

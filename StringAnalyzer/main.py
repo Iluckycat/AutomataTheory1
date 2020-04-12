@@ -1,50 +1,53 @@
 import sys
-sys.path.insert(0, '../SMC')
-import AutomataAnalyzer
+sys.path.insert(0, '../Generator')
+import codeGenerator
+import SMCCheck
+sys.path.insert(0, '../RegEx')
+import regex
 import time
 import os.path
 
-def SMCfilecheck():
-    statemachine = AutomataAnalyzer.AutomataAnalyzer()
-    inf = open('../StringAnalyzer/Files/string.txt', 'r')
-    ouf = open('../StringAnalyzer/Files/SMCOut.txt', 'w')
-    total_num_match = 0
-    stat = {}
-    statemachine.Check('gg')
-
-    _starttime = time.time()
-    for line in inf.readlines():
-        match = statemachine.Check(line)
-        if match:
-            ouf.write(line.rstrip('\n') + ' --- Correct\n')
-            total_num_match += 1
-            if statemachine.GetCmd() == 'chk':
-                tmp = statemachine.GetMacros()
-                if tmp is not None:
-                    if stat.get(tmp) is not None:
-                        stat[tmp] += 1
-                    else:
-                        stat[tmp] = 1
+while True:
+    print('1. Generate new file')
+    print('2. Check file with RegEx')
+    print('3. Check file with SMC')
+    print('4. Show time of analyzing')
+    print('5. Clear time statistics')
+    print('0. Quit')
+    print('Make your choice: ')
+    c = input()
+    if c.isdigit():
+        choice = int(c)
+        if choice == 1:
+            print('How many strings do you want to have in a new file?: ')
+            while True:
+                numstr = input()
+                if numstr.isdigit():
+                    _num = int(numstr)
+                    break
+                else:
+                    print('Wrong choice, try again!')
+            codeGenerator.makefile(_num)
+        elif choice == 2:
+            regex.regexchkfile()
+        elif choice == 3:
+            SMCCheck.SMCCheck()
+        elif choice == 4:
+            if os.path.isfile('Files/time.txt'):
+                times = open('Files/time.txt', 'r')
+                for line in times.readlines():
+                    print(line.rstrip('\n'))
+                print('\n')
+                times.close()
+            else:
+                print('Sorry, but you haven\'t analyzed file yet')
+        elif choice == 5:
+            times = open('Files/time.txt', 'w')
+            times.close()
+        elif choice == 0:
+            break
         else:
-            ouf.write(line.rstrip('\n') + ' --- Incorrect\n')
-    ouf.write('\n')
-    ouf.write('---------------------------------- SOME STATS ---------------------------------- \n')
-    ouf.write('\n')
-    ouf.write('Total number of match is ' + str(total_num_match)+'\n')
-    for key, value in stat.items():
-        ouf.write('\t'+'Macro ' + key + ' checked ' + str(value) + ' times;' + '\n')
-    _endtime = time.time()
-    if os.path.isfile('../StringAnalyzer/Files/time.txt'):
-        timefile = open('../StringAnalyzer/Files/time.txt', 'a')
-        timefile.write('Analyzing with SMC completed in ' + str(_endtime - _starttime) + ' seconds\n')
+            print('Wrong choice, try again!')
     else:
-        timefile = open('../StringAnalyzer/Files/time.txt', 'w')
-        timefile.write('Analyzing with SMC completed in ' + str(_endtime - _starttime) + ' seconds\n')
-    timefile.close()
-    print('Analyzing with SMC completed in ' + str(_endtime - _starttime) + ' seconds\n')
-    print(str(total_num_match))
-    inf.close()
-    ouf.close()
-
-
-SMCfilecheck()
+        print('Wrong choice, try again!')
+print('The end!')

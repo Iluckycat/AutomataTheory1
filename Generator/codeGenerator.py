@@ -17,7 +17,7 @@ def makerndupstr(size):
 
 def makefile(_num):
     _commands = ['add', 'def', 'chk', 'und']
-    with open('../Files/string.txt', 'w') as ouf:
+    with open('../StringAnalyzer/Files/string.txt', 'w') as ouf:
         tm = time.time()
         for i in range(_num):
             bufstr = ''
@@ -44,9 +44,8 @@ def makefile(_num):
             else:
                 _inp = ''
             bufstr += _inp
-            print(bufstr)
             ouf.write(bufstr+'\n')
     print('Program working: '+str(time.time()-tm)+' sec'+'\n')
 
 
-makefile(1000)
+#makefile(1000)

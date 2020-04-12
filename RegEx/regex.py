@@ -1,6 +1,7 @@
 import re
 import time
 import string
+import os.path
 
 
 def regexchkfile():
@@ -30,7 +31,7 @@ def regexchkfile():
                 if _result.group(17) is not None:
                     _total_chk += 1
                     _out_file.write('\t'+_result.group(3)+_result.group(17))
-                    print(_result.group(17))
+                    # print(_result.group(17))
                     tmp = _result.group(20)
                     if stat.get(tmp) is not None:
                         stat[tmp] += 1
@@ -40,13 +41,23 @@ def regexchkfile():
                 if _result.group(27) is not None:
                     _total_und += 1
                     _out_file.write('\t'+_result.group(3)+_result.group(27)+'\n')
-                    print(_result.group(27))
+                    #print(_result.group(27))
                 if _result.group(6) is not None:
                     _total_add_def += 1
                     _out_file.write('\t'+_result.group(3)+_result.group(6)+'\n')
-                    print(_result.group(6))
+                    #print(_result.group(6))
             else:
                 _total -= 1
+
+    if os.path.isfile('../StringAnalyzer/Files/time.txt'):
+        timefile = open('../StringAnalyzer/Files/time.txt', 'a')
+        timefile.write('Analyzing with RegEx completed in ' + str(time.time()-tm) + ' seconds\n')
+    else:
+        timefile = open('../StringAnalyzer/Files/time.txt', 'w')
+        timefile.write('Analyzing with SMC completed in ' + str(time.time()-tm) + ' seconds\n')
+        print('Analyzing with RegEx completed in ' + str(time.time()-tm) + ' seconds\n')
+    timefile.close()
+
     _out_file.write('\n'+'-------------------------------------------------------------------------------------------------------------'+'\n')
     _out_file.write('Timing'+'\n')
     _out_file.write('-------------------------------------------------------------------------------------------------------------'+'\n\n')
@@ -56,7 +67,7 @@ def regexchkfile():
     _out_file.write('Some information about matches'+'\n')
     _out_file.write('-------------------------------------------------------------------------------------------------------------'+'\n\n')
     _out_file.write('\t'+'Total match: '+str(_total)+'\n')
-    print(str(_total))
+    print('\t'+'Total match: '+str(_total)+'\n')
     _out_file.write('\t'+'Total match chk: '+str(_total_chk)+'\n')
     _out_file.write('\t'+'Total match und: '+str(_total_und)+'\n')
     _out_file.write('\t'+'Total match add and def: '+str(_total_add_def)+'\n')
@@ -68,4 +79,4 @@ def regexchkfile():
         _out_file.write('\t'+'Macro ' + key + ' checked ' + str(value) + ' times;' + '\n')
 
 
-regexchkfile()
+

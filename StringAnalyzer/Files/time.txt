@@ -1,5 +1,9 @@
-Analyzing with RegEx completed in 0.025404930114746094 seconds
-Analyzing with SMC completed in 0.5480391979217529 seconds
-Analyzing with PLY completed in 0.7222390174865723 seconds
-Analyzing with PLY completed in 0.5594651699066162 seconds
-Analyzing with PLY completed in 0.5592482089996338 seconds
+Analyzing with RegEx completed in 0.030254840850830078 seconds
+Analyzing with SMC completed in 0.5280139446258545 seconds
+Analyzing with PLY completed in 0.3620951175689697 seconds
+Analyzing with RegEx completed in 0.27523016929626465 seconds
+Analyzing with SMC completed in 5.248928070068359 seconds
+Analyzing with PLY completed in 3.3886730670928955 seconds
+Analyzing with RegEx completed in 2.707456588745117 seconds
+Analyzing with SMC completed in 53.19554615020752 seconds
+Analyzing with PLY completed in 35.02669358253479 seconds

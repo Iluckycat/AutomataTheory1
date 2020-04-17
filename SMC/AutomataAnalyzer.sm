@@ -9,7 +9,6 @@ Default {
 		Start					Start				{ ClearSMC(); }
 		LetterL (ch: String)	Error				{ Unacceptable(); }
 		LetterU	(ch: String)	Error				{ Unacceptable(); }
-		Digit (ch: String)		Error				{ Unacceptable(); }
 		SpaceSmb				Error				{ Unacceptable(); }
 		GridSmb					Error				{ Unacceptable(); }
 		TabSmb					Error				{ Unacceptable(); }
@@ -44,14 +43,12 @@ Macros{
 Space2{
 		LetterL (ch:String) [(ctxt.LessThen80()) and (ctxt.CheckOP2())]			Operands			{ InsToBuf(ch);	IncCnt(); }
 		LetterU (ch:String) [(ctxt.LessThen80()) and (ctxt.CheckOP2())]    		Operands			{ InsToBuf(ch); IncCnt(); }
-		Digit (ch:String) [(ctxt.LessThen80()) and (ctxt.CheckOP2())]			Operands			{ InsToBuf(ch);	IncCnt(); }
 		EOS [ctxt.CheckOP1()]														OK					{ ClearBuf();}
 }
 
 Operands{
 		LetterL (ch:String)[ctxt.LessThen80()] 		nil					{ InsToBuf(ch); IncCnt(); }
 		LetterU	(ch:String)[ctxt.LessThen80()]		nil					{ InsToBuf(ch); IncCnt(); }
-		Digit (ch:String) [ctxt.LessThen80()]		nil					{ InsToBuf(ch); IncCnt(); }
 		SpaceSmb [ctxt.LessThen80()]				Space3				{ InsOps(); IncNoe(); IncCnt(); ClearBuf(); }
 		EOS											OK					{ InsOps(); ClearBuf(); }
 } 
@@ -59,7 +56,7 @@ Operands{
 Space3{
 		LetterL (ch:String)[ctxt.LessThen80()] 		Operands			{ InsToBuf(ch); IncCnt(); }
 		LetterU	(ch:String)[ctxt.LessThen80()]		Operands			{ InsToBuf(ch); IncCnt(); }
-		Digit (ch:String) [ctxt.LessThen80()]		Operands			{ InsToBuf(ch); IncCnt(); }
+		
 }
 
 OK{

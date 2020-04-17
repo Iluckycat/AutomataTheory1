@@ -44,8 +44,10 @@ def makefile(_num):
             else:
                 _inp = ''
             bufstr += _inp
-            ouf.write(bufstr+'\n')
-    print('Program working: '+str(time.time()-tm)+' sec'+'\n')
+            bufstr += '\n'
+            ouf.write(bufstr)
+
+    print('Program working: ' + str(time.time()-tm) + ' sec' + '\n')
 
 
-#makefile(1000)
+# makefile(1000)

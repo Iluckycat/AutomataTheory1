@@ -14,9 +14,6 @@ class AutomataAnalyzerState(statemap.State):
     def Exit(self, fsm):
         pass
 
-    def Digit(self, fsm, ch):
-        self.Default(fsm)
-
     def EOS(self, fsm):
         self.Default(fsm)
 
@@ -74,17 +71,6 @@ class MainMap_Default(AutomataAnalyzerState):
 
 
     def LetterU(self, fsm, ch):
-        ctxt = fsm.getOwner()
-        fsm.getState().Exit(fsm)
-        fsm.clearState()
-        try:
-            ctxt.Unacceptable()
-        finally:
-            fsm.setState(MainMap.Error)
-            fsm.getState().Entry(fsm)
-
-
-    def Digit(self, fsm, ch):
         ctxt = fsm.getOwner()
         fsm.getState().Exit(fsm)
         fsm.clearState()
@@ -271,20 +257,6 @@ class MainMap_Macros(MainMap_Default):
 
 class MainMap_Space2(MainMap_Default):
 
-    def Digit(self, fsm, ch):
-        ctxt = fsm.getOwner()
-        if (ctxt.LessThen80()) and (ctxt.CheckOP2()) :
-            fsm.getState().Exit(fsm)
-            fsm.clearState()
-            try:
-                ctxt.InsToBuf(ch)
-                ctxt.IncCnt()
-            finally:
-                fsm.setState(MainMap.Operands)
-                fsm.getState().Entry(fsm)
-        else:
-            MainMap_Default.Digit(self, fsm, ch)
-        
     def EOS(self, fsm):
         ctxt = fsm.getOwner()
         if ctxt.CheckOP1() :
@@ -328,19 +300,6 @@ class MainMap_Space2(MainMap_Default):
         
 class MainMap_Operands(MainMap_Default):
 
-    def Digit(self, fsm, ch):
-        ctxt = fsm.getOwner()
-        if ctxt.LessThen80() :
-            endState = fsm.getState()
-            fsm.clearState()
-            try:
-                ctxt.InsToBuf(ch)
-                ctxt.IncCnt()
-            finally:
-                fsm.setState(endState)
-        else:
-            MainMap_Default.Digit(self, fsm, ch)
-        
     def EOS(self, fsm):
         ctxt = fsm.getOwner()
         fsm.getState().Exit(fsm)
@@ -397,20 +356,6 @@ class MainMap_Operands(MainMap_Default):
         
 class MainMap_Space3(MainMap_Default):
 
-    def Digit(self, fsm, ch):
-        ctxt = fsm.getOwner()
-        if ctxt.LessThen80() :
-            fsm.getState().Exit(fsm)
-            fsm.clearState()
-            try:
-                ctxt.InsToBuf(ch)
-                ctxt.IncCnt()
-            finally:
-                fsm.setState(MainMap.Operands)
-                fsm.getState().Entry(fsm)
-        else:
-            MainMap_Default.Digit(self, fsm, ch)
-        
     def LetterL(self, fsm, ch):
         ctxt = fsm.getOwner()
         if ctxt.LessThen80() :
